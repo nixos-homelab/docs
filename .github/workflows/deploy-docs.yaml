@@ -1,0 +1,27 @@
+name: Generate and deploy the documentation
+
+on:
+  push:
+    branches: [ '*' ]
+  workflow_dispatch:
+
+jobs:
+  deploy-docs:
+    name: Generate and deploy the documentation
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+    - uses: cachix/install-nix-action@v31
+    - uses: actions/checkout@v7
+      with:
+        path: docs
+    - name: Generate and deploy the documentation
+      run: |
+        eval `ssh-agent -s`
+        trap "ssh-agent -k" EXIT
+        ssh-add - <<<"${{ secrets.GHPAGES_DEPLOY_KEY }}"
+        git clone git@github.com:nixos-homelab/nixos-homelab.github.io gh-pages
+        cd gh-pages
+        nix build '../docs#config' -o mkdocs.yml
+        nix run '../docs#mkdocs' -- gh-deploy --config-file mkdocs.yml --site-dir site

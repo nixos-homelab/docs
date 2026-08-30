@@ -88,12 +88,6 @@
             lib,
             ...
           }:
-          let
-            mkDocsWrapper = ''
-              nix build '${./.}#config'
-              ${lib.getExe pkgs.mkdocs} "$@" --config-file result
-            '';
-          in
           {
             devshells = {
               default = {
@@ -115,14 +109,17 @@
                   {
                     help = "Run mkdocs";
                     name = "mkdocs";
-                    command = mkDocsWrapper;
+                    command = ''
+                      nix build '${./.}#config' -o mkdocs.yml
+                      ${lib.getExe pkgs.mkdocs} "$@"
+                    '';
                   }
                 ];
               };
             };
             apps.mkdocs = {
               type = "app";
-              program = pkgs.writeShellScriptBin "mkdocs" mkDocsWrapper;
+              program = lib.getExe pkgs.mkdocs;
             };
             packages = {
               config = pkgs.callPackage ./nix/packages/config {
@@ -140,7 +137,6 @@
                 additionalSettings = {
                   site_author = "Anders Ingemann";
                   remote_branch = "main";
-                  remote_name = "gh-pages";
                 };
               };
             };
