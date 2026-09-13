@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788098396,
-        "narHash": "sha256-KSUnBFPHY9cOgTBexIn3DNwOHSJbaR98xSOH+2UVHzk=",
+        "lastModified": 1788694269,
+        "narHash": "sha256-+WokaEB7LBz+fWSMRJ8eQWbvsYLeu0r39JnXaOog8yo=",
         "owner": "andsens",
         "repo": "nix-docs",
-        "rev": "764d8990faf4befb49a5558ca398ff5df787f095",
+        "rev": "a3b1adfdcdfd317d8f8dfbf31980224e89ef82b1",
         "type": "github"
       },
       "original": {
