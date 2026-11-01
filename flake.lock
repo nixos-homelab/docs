@@ -728,11 +728,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790515942,
-        "narHash": "sha256-QFmnLbuMqIWjyLmZZv0WQ+7eDdbZmWwdVYAgw+rj5WE=",
+        "lastModified": 1791643942,
+        "narHash": "sha256-eqfIqG8EyP1mz2r4fOtgpJoyYh3AnwKc7iWQ4DBYcyc=",
         "owner": "nixos-homelab",
         "repo": "networking",
-        "rev": "bc101cc35d753221b3f6272513f457be124c84d5",
+        "rev": "291f275f0981e9f8a3665ec4fcb396ec0930c967",
         "type": "github"
       },
       "original": {
