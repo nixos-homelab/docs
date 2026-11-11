@@ -22,4 +22,4 @@ jobs:
     - name: Build the documentation
       run: |
         nix build .#config -o mkdocs.yml
-        nix run .#mkdocs -- build --config-file mkdocs.yml --site-dir site
+        nix run .#mkdocs -- build --strict --config-file mkdocs.yml --site-dir site
