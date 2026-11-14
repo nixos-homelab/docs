@@ -28,7 +28,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.kubetree.follows = "homelab-shared/kubetree";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
       inputs.homelab-networking.follows = "homelab-networking";
     };
@@ -40,7 +39,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.kubetree.follows = "homelab-shared/kubetree";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
     homelab-finance = {
@@ -51,7 +49,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.kubetree.follows = "homelab-shared/kubetree";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
     homelab-networking = {
@@ -62,7 +59,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.kubetree.follows = "homelab-shared/kubetree";
       inputs.nixhelm.follows = "homelab-shared/nixhelm";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
@@ -74,7 +70,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.kubetree.follows = "homelab-shared/kubetree";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
   };
