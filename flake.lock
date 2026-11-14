@@ -299,9 +299,6 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "homelab-networking": [
-          "homelab-networking"
-        ],
         "homelab-shared": [
           "homelab-shared"
         ],
@@ -324,11 +321,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794654238,
-        "narHash": "sha256-6GA64T5fAZ1r4A9HuEDtpgH8BVDD7pyq6U5ef7M9WWE=",
+        "lastModified": 1794668155,
+        "narHash": "sha256-TL6ExTdMrrTC7OMv2bK/iBUHcLlI+BCy0Bvl53ryjjk=",
         "owner": "nixos-homelab",
         "repo": "monitoring",
-        "rev": "b0b6593931d055f9cefc809f2a8ef0fa6623d57e",
+        "rev": "e01b181ed8f689e80e515fcfa204eeea8f3af593",
         "type": "github"
       },
       "original": {
@@ -369,11 +366,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794650833,
-        "narHash": "sha256-SU9dnZpWk05fBnYqRSiG0I1/h+6VCZe05jd4+j75LVs=",
+        "lastModified": 1794668155,
+        "narHash": "sha256-OyzxXaQhBH/4Qkpl3o+8H8yg+ks+D4hB+brpqcw15bA=",
         "owner": "nixos-homelab",
         "repo": "networking",
-        "rev": "214d14aa8f9d390d8df529598cbe397df7ecafc2",
+        "rev": "a2246baa0bb37abb7e00493e51fd9e609592c324",
         "type": "github"
       },
       "original": {
@@ -446,11 +443,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794654294,
-        "narHash": "sha256-1xlEnNv31/g8rTR/w5pNldGKLNMsYoK90SKMJFsqk+c=",
+        "lastModified": 1794668155,
+        "narHash": "sha256-8tlKserCHMQHkHOg5wVq4T5DOOFcsi2TjMHuJClwNlo=",
         "owner": "nixos-homelab",
         "repo": "shared",
-        "rev": "dfc92599e37c438bbefe04f28246eaaff95820c5",
+        "rev": "e3cd2b79f92b62cc41a06a3360cefd86521b755e",
         "type": "github"
       },
       "original": {

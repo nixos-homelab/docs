@@ -48,7 +48,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
-      inputs.homelab-networking.follows = "homelab-networking";
       inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
@@ -116,6 +115,11 @@
             ...
           }:
           {
+            # Dead Nix code. Pattern names stay: modules take { config, lib, pkgs, ... } whether they use them or not
+            checks.deadnix = pkgs.runCommand "deadnix" { nativeBuildInputs = [ pkgs.deadnix ]; } ''
+              deadnix --fail --no-lambda-pattern-names ${self}
+              touch $out
+            '';
             devshells = {
               default = {
                 motd = "";
