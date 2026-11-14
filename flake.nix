@@ -20,6 +20,16 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
     };
+    homelab-storage = {
+      url = "github:nixos-homelab/storage";
+      inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.docs.follows = "docs";
+      inputs.homelab-shared.follows = "homelab-shared";
+      inputs.kube-generators.follows = "homelab-shared/kube-generators";
+      inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+    };
     homelab-media = {
       url = "github:nixos-homelab/media";
       inputs.systems.follows = "systems";
@@ -38,6 +48,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
+      inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
@@ -48,6 +59,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
+      inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
@@ -69,6 +81,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
+      inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
@@ -140,6 +153,7 @@
                 modules = {
                   inherit (inputs)
                     homelab-shared
+                    homelab-storage
                     homelab-media
                     homelab-monitoring
                     homelab-finance
