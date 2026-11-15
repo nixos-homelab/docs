@@ -115,8 +115,76 @@
       {
         imports = [ inputs.devshell.flakeModule ];
         systems = import systems;
-        flake = {
-        };
+        flake =
+          let
+            modules = {
+              inherit (inputs)
+                homelab-shared
+                homelab-storage
+                homelab-media
+                homelab-monitoring
+                homelab-finance
+                homelab-networking
+                homelab-personal
+                homelab-development
+                ;
+            };
+          in
+          {
+            nixosModules.docs = flake-parts-lib.importApply ./nix/modules/docs { inherit self inputs; };
+            lib = {
+              /**
+                The site: its mkdocs.yml (`config`) and the site built strict from it (`site`). `values` (option name
+                to `{ value; changed; }`) adds the current values, `siteUrl` is where it is served.
+              */
+              site =
+                {
+                  pkgs,
+                  values ? null,
+                  siteUrl ? "https://nixos-homelab.github.io/",
+                }:
+                let
+                  python = pkgs.python3.withPackages (p: [
+                    p.mkdocs
+                    p.mkdocs-material
+                  ]);
+                  config = pkgs.callPackage ./nix/packages/config {
+                    docsLib = inputs.docs.lib;
+                    inherit modules values;
+                    additionalSettings = {
+                      site_author = "Anders Ingemann";
+                      site_url = siteUrl;
+                      remote_branch = "main";
+                    };
+                  };
+                in
+                {
+                  inherit config;
+                  mkdocs = "${python}/bin/mkdocs";
+                  site = pkgs.runCommand "site" { } ''
+                    ${python}/bin/mkdocs build --strict --config-file ${config} --site-dir "$out"
+                  '';
+                };
+              /**
+                The options the site shows, by name, as `optionsNix` entries (`loc`, `type`, ...), from every repo's
+                `options-docs`.
+              */
+              options =
+                system:
+                lib.foldl' (
+                  acc: module:
+                  let
+                    docs = module.packages.${system}.options-docs or null;
+                  in
+                  if docs == null then
+                    acc
+                  else if docs ? prefixGroups then
+                    lib.foldl' (a: group: a // group.nix) acc (lib.attrValues docs.prefixGroups)
+                  else
+                    acc // docs.nix
+                ) { } (lib.attrValues modules);
+            };
+          };
         perSystem =
           {
             system,
@@ -126,21 +194,21 @@
             ...
           }:
           let
-            # mkdocs with the Material theme
-            python = pkgs.python3.withPackages (p: [
-              p.mkdocs
-              p.mkdocs-material
-            ]);
-            mkdocs = "${python}/bin/mkdocs";
+            inherit (self.lib.site { inherit pkgs; }) mkdocs;
           in
           {
             # Dead Nix code. Pattern names stay: modules take { config, lib, pkgs, ... } whether they use them or not
-            checks.deadnix = pkgs.runCommand "deadnix" { nativeBuildInputs = [ pkgs.deadnix ]; } ''
-              deadnix --fail --no-lambda-pattern-names ${self}
-              touch $out
-            '';
-            # The site, built strict: broken links and missing pages fail the check
-            checks.site = config.packages.site;
+            checks = {
+              deadnix = pkgs.runCommand "deadnix" { nativeBuildInputs = [ pkgs.deadnix ]; } ''
+                deadnix --fail --no-lambda-pattern-names ${self}
+                touch $out
+              '';
+              # The site, built strict: broken links and missing pages fail the check
+              site = config.packages.site;
+            }
+            // import ./nix/tests {
+              inherit self inputs pkgs lib;
+            };
             devshells = {
               default = {
                 motd = "";
@@ -175,29 +243,7 @@
               meta.description = "mkdocs with the Material theme";
             };
             packages = {
-              config = pkgs.callPackage ./nix/packages/config {
-                docsLib = inputs.docs.lib;
-                modules = {
-                  inherit (inputs)
-                    homelab-shared
-                    homelab-storage
-                    homelab-media
-                    homelab-monitoring
-                    homelab-finance
-                    homelab-networking
-                    homelab-personal
-                    homelab-development
-                    ;
-                };
-                additionalSettings = {
-                  site_author = "Anders Ingemann";
-                  site_url = "https://nixos-homelab.github.io/";
-                  remote_branch = "main";
-                };
-              };
-              site = pkgs.runCommand "site" { } ''
-                ${mkdocs} build --strict --config-file ${config.packages.config} --site-dir "$out"
-              '';
+              inherit (self.lib.site { inherit pkgs; }) config site;
             };
           };
       }

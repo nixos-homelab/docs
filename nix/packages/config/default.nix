@@ -6,6 +6,8 @@
   docsLib,
   modules,
   additionalSettings ? { },
+  # Current values of the options, for the cluster site (nix-docs `buildModuleDocsDir`)
+  values ? null,
   ...
 }:
 let
@@ -36,6 +38,7 @@ let
                 options-docs = mpkgs.options-docs or null;
                 lib-docs = mpkgs.lib-docs or null;
                 manual-docs = mpkgs.manual-docs or null;
+                inherit values;
               }
             } ${lib.removePrefix "homelab-" name}
           '') modules
