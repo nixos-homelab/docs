@@ -89,8 +89,9 @@ let
       }
     else
       null;
+  withoutValue = name: lib.any (prefix: name == prefix || lib.hasPrefix "${prefix}." name) cfg.withoutValues;
   values = lib.filterAttrs (_: v: v != null) (
-    lib.mapAttrs valueOf (removeAttrs (self.lib.options system) cfg.withoutValues)
+    lib.mapAttrs valueOf (lib.filterAttrs (name: _: !withoutValue name) (self.lib.options system))
   );
 
   site =
@@ -141,13 +142,13 @@ in
     };
     withoutValues = lib.mkOption {
       description = ''
-        Options shown without their value. Their values hold the cluster manifests or what is derived from them, the
-        docs workload among them, whose image holds the site: showing them would make the site depend on itself.
+        Options shown without their value, each with the options below it. These hold the cluster manifests, the docs
+        workload among them, whose image holds the site: showing them would make the site depend on itself.
       '';
       type = lib.types.listOf lib.types.str;
       default = [
         "homelab.kubernetes"
-        "homelab.cluster.manifests.<name>.content"
+        "homelab.cluster.manifests"
       ];
     };
     site = lib.mkOption {
