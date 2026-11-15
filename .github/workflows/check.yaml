@@ -1,6 +1,6 @@
 name: Check
 
-# The checks of the flake, and the site built from the module repos the flake pins, without deploying it
+# The checks of the flake, the site (built strict from the module repos the flake pins) among them, without deploying it
 on:
   push:
     branches: [main]
@@ -21,7 +21,3 @@ jobs:
         extra_nix_config: experimental-features = nix-command flakes
     - name: Check the flake
       run: nix flake check -L
-    - name: Build the documentation
-      run: |
-        nix build .#config -o mkdocs.yml
-        nix run .#mkdocs -- build --strict --config-file mkdocs.yml --site-dir site

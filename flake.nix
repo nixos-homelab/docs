@@ -122,14 +122,25 @@
             system,
             pkgs,
             lib,
+            config,
             ...
           }:
+          let
+            # mkdocs with the Material theme
+            python = pkgs.python3.withPackages (p: [
+              p.mkdocs
+              p.mkdocs-material
+            ]);
+            mkdocs = "${python}/bin/mkdocs";
+          in
           {
             # Dead Nix code. Pattern names stay: modules take { config, lib, pkgs, ... } whether they use them or not
             checks.deadnix = pkgs.runCommand "deadnix" { nativeBuildInputs = [ pkgs.deadnix ]; } ''
               deadnix --fail --no-lambda-pattern-names ${self}
               touch $out
             '';
+            # The site, built strict: broken links and missing pages fail the check
+            checks.site = config.packages.site;
             devshells = {
               default = {
                 motd = "";
@@ -152,7 +163,7 @@
                     name = "mkdocs";
                     command = ''
                       nix build '${./.}#config' -o mkdocs.yml
-                      ${lib.getExe pkgs.mkdocs} "$@"
+                      ${mkdocs} "$@"
                     '';
                   }
                 ];
@@ -160,7 +171,8 @@
             };
             apps.mkdocs = {
               type = "app";
-              program = lib.getExe pkgs.mkdocs;
+              program = mkdocs;
+              meta.description = "mkdocs with the Material theme";
             };
             packages = {
               config = pkgs.callPackage ./nix/packages/config {
@@ -179,9 +191,13 @@
                 };
                 additionalSettings = {
                   site_author = "Anders Ingemann";
+                  site_url = "https://nixos-homelab.github.io/";
                   remote_branch = "main";
                 };
               };
+              site = pkgs.runCommand "site" { } ''
+                ${mkdocs} build --strict --config-file ${config.packages.config} --site-dir "$out"
+              '';
             };
           };
       }
