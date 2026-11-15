@@ -53,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794746853,
-        "narHash": "sha256-YmdUo/0I4wrEA3leCwfpf+XqYWzUyOsbEzT69rhNWSI=",
+        "lastModified": 1794747410,
+        "narHash": "sha256-Chjd4I3FEpi9hlz6E/cBPgZ3HpNWPU6EoXa2Cvf7F0o=",
         "owner": "andsens",
         "repo": "nix-docs",
-        "rev": "46632d20a417b32e23ebb90f1d7a90a14ac835b3",
+        "rev": "282818803850dd190936473efc80990be9392bc5",
         "type": "github"
       },
       "original": {
@@ -275,11 +275,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794654233,
-        "narHash": "sha256-2IdhVQX4dP/p08hUs2sdpw4vlg4qmC1rjRfAOVLZ2Lk=",
+        "lastModified": 1794747416,
+        "narHash": "sha256-BqS7pbStTwm2pIW54CCkuo5w26vyov00QTiKK38aCNI=",
         "owner": "nixos-homelab",
         "repo": "finance",
-        "rev": "1eb3531ec51abc406c025f04b9573bf7c00815df",
+        "rev": "d72a3457e2ad460c1cd2a6d0522a92523d4a71e8",
         "type": "github"
       },
       "original": {
