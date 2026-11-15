@@ -69,7 +69,8 @@ in
         html = open(f"{site}/{page}/index.html").read()
         match = re.search(r'<tr[^>]*id="%s"[^>]*>(.*?)</tr>' % re.escape(name), html, re.S)
         assert match, f"no row for {name} in {page}"
-        return match.group(1)
+        # Cell values carry break points (<wbr>) at their dots, slashes and dashes
+        return match.group(1).replace("<wbr>", "")
 
     domain = row("shared/options/workloads", "homelab.workloads.domain")
     assert 'nd-value nd-changed' in domain and "example.org" in domain, domain
