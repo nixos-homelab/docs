@@ -19,6 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.docs.follows = "docs";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-storage = {
       url = "github:nixos-homelab/storage";
@@ -29,6 +30,7 @@
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-media = {
       url = "github:nixos-homelab/media";
@@ -40,6 +42,7 @@
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
       inputs.homelab-networking.follows = "homelab-networking";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-monitoring = {
       url = "github:nixos-homelab/monitoring";
@@ -62,6 +65,7 @@
       inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-networking = {
       url = "github:nixos-homelab/networking";
@@ -73,6 +77,7 @@
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.nixhelm.follows = "homelab-shared/nixhelm";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-personal = {
       url = "github:nixos-homelab/personal";
@@ -84,6 +89,7 @@
       inputs.homelab-storage.follows = "homelab-storage";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+      inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
     homelab-development = {
       url = "github:nixos-homelab/development";
