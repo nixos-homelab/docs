@@ -75,6 +75,9 @@ in
     assert 'nd-value nd-changed' in domain and "example.org" in domain, domain
     k3s = open(f"{site}/shared/options/k3s/index.html").read()
     assert 'nd-badge nd-enabled' in k3s, "no enabled badge on k3s"
+    # An option inside an option of a submodule type
+    secret = row("shared/options/cert-manager", "homelab.cert-manager.acme-staging-issuer.webhook-config.secretName")
+    assert 'nd-value nd-changed' in secret and "dns-credentials" in secret, secret
     # An option of a module the system doesn't import has no value
     sonarr = row("media/options/sonarr", "homelab.sonarr.enable")
     assert '<td class="nd-value">—</td>' in sonarr, sonarr

@@ -41,16 +41,39 @@ let
         resolve node.${head} tail
       else
         missing;
+  # The option at `loc`, following options of submodule types into their instances (`valueMeta`): an option
+  # documented under an instance (`sections.Personal.enable`) lives in that instance's own configuration, not in
+  # the system's `options` tree
+  isOption = v: lib.isAttrs v && (v._type or null) == "option";
+  findOption =
+    node: loc:
+    if loc == [ ] then
+      node
+    else if isOption node then
+      intoMeta (node.valueMeta or { }) loc
+    else
+      let
+        head = builtins.head loc;
+      in
+      if lib.isAttrs node && node ? ${head} then findOption node.${head} (builtins.tail loc) else null;
+  intoMeta =
+    meta: loc:
+    if meta ? configuration then
+      findOption meta.configuration.options loc
+    else if meta ? attrs && meta.attrs ? ${builtins.head loc} then
+      intoMeta meta.attrs.${builtins.head loc} (builtins.tail loc)
+    else
+      null;
   valueOf =
     _name: doc:
     let
       placeholder = lib.any (part: part == "<name>" || part == "*") doc.loc;
-      opt = lib.attrByPath doc.loc null options;
+      opt = findOption options doc.loc;
       defined =
         if placeholder then
           !isMissing (resolve options (lib.take 1 doc.loc))
         else
-          lib.isAttrs opt && opt ? isDefined && opt.isDefined;
+          isOption opt && opt.isDefined;
       value = if placeholder then resolve config doc.loc else opt.value;
       # Forces what the page will print, so a value that throws drops out here rather than failing the site
       checked = builtins.tryEval (
