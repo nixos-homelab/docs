@@ -25,7 +25,7 @@ let
       (
         cd docs
         ln -s ${../../../README.md} index.md
-        ln -s ${../../../css} css
+        ln -s ${docsLib.mkdocs.assets} nix-docs
         ${lib.join "\n" (
           lib.mapAttrsToList (name: module: ''
             ln -s ${
@@ -53,11 +53,37 @@ let
 in
 writeText "mkdocs.yml" (
   builtins.toJSON (
-    {
+    lib.recursiveUpdate (lib.recursiveUpdate {
       site_name = "NixOS Homelab";
       docs_dir = docsDir;
-      extra_css = [ "css/extra.css" ];
-    }
-    // additionalSettings
+      theme = {
+        name = "material";
+        features = [
+          "navigation.tabs"
+          "navigation.instant"
+          "navigation.sections"
+          "content.code.copy"
+          "search.highlight"
+        ];
+        palette = [
+          {
+            media = "(prefers-color-scheme: light)";
+            scheme = "default";
+            toggle = {
+              icon = "material/brightness-7";
+              name = "Dark mode";
+            };
+          }
+          {
+            media = "(prefers-color-scheme: dark)";
+            scheme = "slate";
+            toggle = {
+              icon = "material/brightness-4";
+              name = "Light mode";
+            };
+          }
+        ];
+      };
+    } docsLib.mkdocs.settings) additionalSettings
   )
 )
