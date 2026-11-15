@@ -205,6 +205,46 @@
         "type": "github"
       }
     },
+    "homelab-development": {
+      "inputs": {
+        "docs": [
+          "docs"
+        ],
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "homelab-shared": [
+          "homelab-shared"
+        ],
+        "kube-generators": [
+          "homelab-shared",
+          "kube-generators"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "setup-secrets": [
+          "homelab-shared",
+          "setup-secrets"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794734426,
+        "narHash": "sha256-fQm2KN5eZ6ilB7gtrSv8MXOpcijOBeYAN5TaghEoHqs=",
+        "owner": "nixos-homelab",
+        "repo": "development",
+        "rev": "5fe4f57badc9290559826da1e8cd3aadec0ddc08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos-homelab",
+        "repo": "development",
+        "type": "github"
+      }
+    },
     "homelab-finance": {
       "inputs": {
         "docs": [
@@ -769,6 +809,7 @@
         "devshell": "devshell",
         "docs": "docs",
         "flake-parts": "flake-parts",
+        "homelab-development": "homelab-development",
         "homelab-finance": "homelab-finance",
         "homelab-media": "homelab-media",
         "homelab-monitoring": "homelab-monitoring",

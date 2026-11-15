@@ -85,6 +85,16 @@
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
     };
+    homelab-development = {
+      url = "github:nixos-homelab/development";
+      inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.docs.follows = "docs";
+      inputs.homelab-shared.follows = "homelab-shared";
+      inputs.kube-generators.follows = "homelab-shared/kube-generators";
+      inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
+    };
   };
 
   outputs =
@@ -164,6 +174,7 @@
                     homelab-finance
                     homelab-networking
                     homelab-personal
+                    homelab-development
                     ;
                 };
                 additionalSettings = {
