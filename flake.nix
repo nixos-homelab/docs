@@ -75,7 +75,6 @@
       inputs.docs.follows = "docs";
       inputs.homelab-shared.follows = "homelab-shared";
       inputs.kube-generators.follows = "homelab-shared/kube-generators";
-      inputs.nixhelm.follows = "homelab-shared/nixhelm";
       inputs.setup-secrets.follows = "homelab-shared/setup-secrets";
       inputs.homelab-monitoring.follows = "homelab-monitoring";
     };
