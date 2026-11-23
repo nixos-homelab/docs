@@ -211,6 +211,11 @@
                 deadnix --fail --no-lambda-pattern-names ${self}
                 touch $out
               '';
+              # One lock node per homelab repo
+              flake-lock = inputs.homelab-shared.lib.checks.flakeLock {
+                inherit pkgs;
+                lockFile = ./flake.lock;
+              };
               # The site, built strict: broken links and missing pages fail the check
               site = config.packages.site;
             }
